@@ -47,4 +47,5 @@ Route::prefix(('client'))->group(function () {
         ->name('client.home');
 });
 
+
 // Route::get('send_mail/{id}', [SendMailController::class, 'send_mail']);

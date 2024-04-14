@@ -66,9 +66,9 @@ class UserController extends Controller
         );
         if (Auth::attempt($validateLogin)) {
             if (Auth::user()->role == 1) {
-                return redirect()->route('admin.category.list');
+                return redirect()->route('admin.user.list');
             }
-            return redirect()->route('client.home');
+            return redirect()->route('admin.user.list');
         }
         return redirect()->route('user.login_form')->with('message', 'Login failed');
     }
