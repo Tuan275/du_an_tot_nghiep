@@ -8,22 +8,23 @@ use Carbon\Carbon;
 
 class ServicesController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $ser = Services::all();
         return view('admin.servicess.list', compact('ser'));
-    
     }
-    public function create() {
+    public function create()
+    {
         return view('admin.servicess.create');
-
     }
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $ser = Services::all();
         $formFields = $request->validate([
-            'name_service'=> 'required',
-            'image'=> 'required|file|mimes:jpg,jpeg,png',
-            'status'=> 'required',
-            'description'=> 'required',
+            'name_service' => 'required',
+            'image' => 'required|file|mimes:jpg,jpeg,png',
+            'status' => 'required',
+            'description' => 'required',
 
         ]);
         if ($request->hasFile('image')) {
@@ -35,18 +36,20 @@ class ServicesController extends Controller
         return redirect()->route('admin.service.list');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $ser = Services::find($id);
-        return view('admin.servicess.edit', ['ser'=> $ser]);
+        return view('admin.servicess.edit', ['ser' => $ser]);
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $formFields = $request->validate([
-            'name_service'=> 'required',
-            'image'=> 'required|file|mimes:jpg,jpeg,png',
-            'status'=> 'required',
-            'description'=> 'required',
-            'id'=>'required',
+            'name_service' => 'required',
+            'image' => 'required|file|mimes:jpg,jpeg,png',
+            'status' => 'required',
+            'description' => 'required',
+            'id' => 'required',
 
         ]);
 
@@ -54,14 +57,14 @@ class ServicesController extends Controller
         $ser = Services::find($formFields['id']);
 
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $file = $formFields['image'];
             $filename = $file->getClientOriginalName();
             $path = 'uploads/servicess/';
             $file->move($path, $filename);
             $ser->image = $path . $filename;
         }
-        
+
         // dd($request->image);
         $ser->name_service = $formFields['name_service'];
         $ser->description = $formFields['description'];
@@ -73,18 +76,25 @@ class ServicesController extends Controller
         return redirect()->route('admin.service.list');
     }
 
-    public function update_status(Request $request) {
+    public function update_status(Request $request)
+    {
         $ser = Services::find($request->id);
-        if($ser) {
+        if ($ser) {
             $ser->status = $request->status;
         }
         $ser->save();
         return redirect()->route('admin.service.list');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         Services::where('id', $id)->delete();
         return redirect('admin/service/list')->with('message', 'Delete service successfully');
     }
 
+    public function show_services()
+    {
+        $ser = Services::all();
+        return view('client.home', compact('ser'));
+    }
 }

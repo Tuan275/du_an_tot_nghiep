@@ -6,6 +6,8 @@ use App\Models\Payment_info;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+use function Laravel\Prompts\table;
+
 class Payment_infoController extends Controller
 {   
     public function index(){

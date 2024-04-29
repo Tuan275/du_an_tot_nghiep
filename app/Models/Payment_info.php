@@ -13,11 +13,12 @@ class Payment_info extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        "name",
-        "address",
-        "phone_number",
-        "image",
-        "description"
-    ] ;
+    protected $table = 'payment_info';
+    // protected $fillable = [
+    //     "name",
+    //     "address",
+    //     "phone_number",
+    //     "image",
+    //     "description",
+    // ] ;
 }
