@@ -32,6 +32,7 @@
             <button class="btn btn-sidebar">
               <i class="fas fa-search fa-fw"></i>
             </button>
+            
           </div>
         </div>
       </div>
@@ -66,6 +67,123 @@
           </li>
         </ul>
       </nav>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{route('admin.categories.list')}}" class="nav-link">
+              <i class="nav-icon fa-solid fa-list"></i>
+              <p>
+                Category
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.categories.list')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>List Categories</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.categories.create')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Create Categories</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+  
+       <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{route('admin.photographer.list')}}" class="nav-link">
+              <i class="nav-icon fa-solid fa-address-book"></i>
+              <p>
+                Photographer
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.photographer.list')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>List Photographer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.photographer.create')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Create Photographer</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{route('admin.service.list')}}" class="nav-link">
+              <i class="nav-icon fa-solid fa-camera-retro"></i>
+              <p>
+                Service
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.service.list')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>List Service</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.service.create')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Create Service</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{route('admin.payment.list')}}" class="nav-link">
+              <i class="nav-icon fa-solid fa-address-book"></i>
+              <p>
+                Payment
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.payment.list')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>List Payment</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

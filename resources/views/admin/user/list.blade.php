@@ -10,6 +10,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col">Image</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,14 @@
                     <td>
                         <img width="100" src="../../../{{$user->image}}" alt="">
                     </td>
+                    <td><button class="btn btn-primary">
+                            <a class="text-white" href="{{route('admin.user.edit', $user->id)}}">Edit</a>
+                        </button>
+                        <button class="btn btn-danger">
+                            <a class="text-white"
+                            onclick="return confirm('Really delete this user?')"
+                            href="{{route('admin.user.delete', $user->id)}}"> Delete</a>
+                        </button></td>
                 </tr>
             @endforeach
         </tbody>
