@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -81,5 +82,50 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('client.home');
+    }
+
+    //sửa - xóa
+    public function edit($id) {
+        $user = User::find($id);
+        return view('admin.user.edit', ['user'=> $user]);
+    }
+
+    public function update(Request $request) {
+        $formFields = $request->validate([
+            'name'=> 'required',
+            'image'=> 'required|file|mimes:jpg,jpeg,png',
+            'password'=> 'required',
+            'email'=> 'required',
+            'id'=>'required',
+
+        ]);
+
+        // dd($formFields);
+        $user = User::find($formFields['id']);
+
+        // dd($request->image);
+        if($request->hasFile('image')) {
+            $file = $formFields['image'];
+            $filename = $file->getClientOriginalName();
+            $path = 'uploads/user/';
+            $file->move($path, $filename);
+            $user->image = $path . $filename;
+        }
+        
+        
+        $user->name_service = $formFields['name_service'];
+        $user->email = $formFields['email'];
+        $user->password = $formFields['password'];
+        $user->created_at = Carbon::now();
+
+
+        $user->save();
+        return redirect()->route('admin.user.list');
+    }
+
+
+    public function delete($id) {
+        User::where('id', $id)->delete();
+        return redirect('admin/user/list')->with('message', 'Delete user successfully');
     }
 }

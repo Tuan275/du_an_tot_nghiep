@@ -36,4 +36,6 @@
     <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="../../../plugins/summernote/summernote-bs4.min.css">
+
+
   </head>
