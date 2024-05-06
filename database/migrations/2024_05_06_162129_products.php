@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name_service');
-            $table->tinyInteger('status')->default(1);
-            $table->date('schedule');
-            $table->tinyInteger('user_id');
+            $table->string('products_name');
+            $table->string('products_image');
+            $table->tinyInteger('category_id');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointments');
+        //
     }
 };
