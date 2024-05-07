@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Reviews;
-use App\Models\Appointments;
+use App\Models\Services;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Services extends Model
+class Reviews extends Model
 {
     use HasFactory;
     /**
@@ -18,24 +17,19 @@ class Services extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "name_service",
-        "image",
+        "user_id",
+        "service_id",
         "status",
         "description"
     ];
 
-    public function reviews(): HasMany
+    public function services(): BelongsTo
     {
-        return $this->hasMany(Reviews::class, 'service_id');
+        return $this->belongsTo(Services::class, 'service_id');
     }
 
     public function users(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function appointments(): BelongsTo
-    {
-        return $this->belongsTo(Appointments::class, 'service_id');
     }
 }

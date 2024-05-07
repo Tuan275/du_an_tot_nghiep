@@ -16,7 +16,6 @@ return new class extends Migration
             $table->tinyInteger('user_id');
             $table->tinyInteger('service_id');
             $table->tinyInteger('status')->default(1);
-            $table->string('name_service');
             $table->longText('description');
             $table->timestamps();
         });

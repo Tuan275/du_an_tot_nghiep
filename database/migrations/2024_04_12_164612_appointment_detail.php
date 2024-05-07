@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('appointment_detail', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('service_id');
             $table->tinyInteger('user_id');
             $table->tinyInteger('appointment_id');
             $table->tinyInteger('status')->default(1);

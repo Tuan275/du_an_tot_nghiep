@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Products;
+use App\Models\Categories;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model
+class Products extends Model
 {
     use HasFactory;
     /**
@@ -15,11 +16,13 @@ class Category extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        "products_name",
+        "products_image",
+        "category_id",
     ];
 
-    public function products(): HasMany
+    public function categories(): BelongsTo
     {
-        return $this->hasMany(Products::class, 'category_id');
+        return $this->belongsTo(Categories::class, 'category_id');
     }
 }

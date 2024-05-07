@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('name_service');
+            $table->tinyInteger('service_id');
             $table->tinyInteger('status')->default(1);
             $table->date('schedule');
             $table->tinyInteger('user_id');
