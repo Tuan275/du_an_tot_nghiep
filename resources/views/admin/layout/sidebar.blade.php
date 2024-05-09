@@ -73,6 +73,36 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
+            <a href="{{route('admin.products.list')}}" class="nav-link">
+              <i class="nav-icon fa-solid fa fa-th-large"></i>
+              <p>
+                Product
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.products.list')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>List Product</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.products.create')}}" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Create Product</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
             <a href="{{route('admin.categories.list')}}" class="nav-link">
               <i class="nav-icon fa-solid fa-list"></i>
               <p>

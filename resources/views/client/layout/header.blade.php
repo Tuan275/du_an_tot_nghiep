@@ -44,12 +44,49 @@
             @endauth
           </div>
         </div>
+        <style>
+    /* Font chữ */
+    .menu.header li a {
+        font-family: "Roboto", sans-serif; /* Sử dụng font chữ Roboto */
+        font-weight: 500; /* Độ đậm của font chữ */
+        font-size: 16px; /* Kích thước font chữ */
+        color: #333; /* Màu chữ */
+        text-decoration: none; /* Loại bỏ gạch chân */
+        transition: color 0.3s; /* Hiệu ứng màu chữ khi hover */
+    }
+
+    /* Hover chữ */
+    .menu.header li a:hover {
+        color: #ff9900; /* Màu chữ khi hover */
+    }
+
+    /* Tạo hiệu ứng gạch chân */
+    .menu.header li a::after {
+        content: ''; /* Tạo nội dung giả */
+        position: absolute; /* Thiết lập vị trí tuyệt đối */
+        left: 0; /* Căn về phía trái */
+        bottom: -2px; /* Khoảng cách từ gạch chân đến vị trí chữ */
+        width: 100%; /* Chiều rộng bằng 100% của liên kết */
+        height: 2px; /* Độ dày của gạch chân */
+        background-color: #ccc; /* Màu của gạch chân */
+        visibility: hidden; /* Ẩn gạch chân ban đầu */
+        transform: scaleX(0); /* Scale chiều rộng của gạch chân về 0 */
+        transition: all 0.3s ease-in-out; /* Hiệu ứng khi hover */
+    }
+
+    /* Hiệu ứng khi hover */
+    .menu.header li a:hover::after {
+        visibility: visible; /* Hiển thị gạch chân khi hover */
+        transform: scaleX(1); /* Scale chiều rộng của gạch chân về 1 */
+    }
+</style>
         <ul class="flex items-center gap-3 justify-center mt-4 menu header">
           <li><a href="{{route('client.home')}}">Trang chủ</a></li>
-          <li><a href="album.html">Thư viện ảnh</a></li>
+          <li><a href="{{route('client.album')}}">Thư viện ảnh</a></li>
           <li><a href="about.html">Về chúng tôi</a></li>
           <li><a href="price.html">Bảng giá</a></li>
           <li><a href="contact.html">Liên hệ</a></li>
+          <li><input placeholder="Tìm kiếm" type="text"><i class="fas fa-search"></i></li>
         </ul>
 
        

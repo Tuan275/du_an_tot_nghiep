@@ -6,6 +6,8 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,9 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [ServicesController::class, 'show_services'])
     ->name('client.home');
+Route::get('album', [ProductsController::class, 'show_product'])
+    ->name('client.album');
+   
 Route::middleware('checkadmin')->prefix('admin')->group(function () {
     Route::get('index', [UserController::class, 'index'])
         ->name('admin.index');
@@ -37,6 +42,7 @@ Route::middleware('checkadmin')->prefix('admin')->group(function () {
         Route::get('delete/{id}', [UserController::class, 'delete'])
             ->name('admin.user.delete');
     });
+
     //Categories
     Route::prefix('categories')->group(function () {
         Route::get('list', [CategoriesController::class, 'index'])
@@ -95,7 +101,24 @@ Route::middleware('checkadmin')->prefix('admin')->group(function () {
         Route::get('delete/{id}', [Payment_infoController::class, 'delete'])
             ->name('admin.payment.delete');
     });
+
+    //Product
+    Route::prefix('product')->group(function () {
+        Route::get('list', [ProductsController::class,'index'])
+            ->name('admin.products.list');
+            Route::get('create', [ProductsController::class, 'create'])
+            ->name('admin.products.create');
+        Route::post('store', [ProductsController::class, 'store'])
+            ->name('admin.products.store');
+        Route::get('edit/{id}', [ProductsController::class, 'edit'])
+            ->name('admin.products.edit');
+        Route::put('update/{id}', [ProductsController::class, 'update'])
+            ->name('admin.products.update');
+         Route::get('delete/{id}', [ProductsController::class, 'delete'])
+            ->name('admin.products.delete');
+    });
 });
+
 
 
 

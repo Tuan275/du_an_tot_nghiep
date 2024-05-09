@@ -21,6 +21,7 @@ class Services extends Model
         "name_service",
         "image",
         "status",
+        "price",
         "description"
     ];
 

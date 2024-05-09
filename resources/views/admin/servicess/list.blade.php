@@ -10,6 +10,7 @@
             <th scope="col">Image</th>
             <th scope="col">Description</th>
             <th scope="col">Status</th>
+            <th scope="col">Price</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -35,6 +36,7 @@
                 </button>
                 @endif
             </td>
+            <td>{{$Services->price}}</td>
             <td>
                 <div class="grid gap-2 items-center">
                     <button class="btn btn-primary">
@@ -49,4 +51,5 @@
         @endforeach
     </tbody>
 </table>
+    {{$ser ->links()}}
 @endsection

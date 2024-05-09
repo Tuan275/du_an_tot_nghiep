@@ -29,6 +29,7 @@
                     type="file"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="image"
+                    multiple="multiple"
                 />
 
                 @error('image')
@@ -40,6 +41,22 @@
                 
                 <input type="hidden" name="status" value="0">
 
+            </div>
+
+            <div class="mb-6">
+                <label for="price" class="inline-block text-lg mb-2">
+                    Price
+                </label>
+                <input
+                    type="text"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="price"
+                    value="{{old('price')}}"
+                />
+
+                @error('price')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
             </div>
 
             <div class="mb-6">
