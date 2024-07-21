@@ -79,6 +79,22 @@
             </div>
 
             <div class="mb-6">
+                <label for="price_table" class="inline-block text-lg mb-2">
+                    Price Table
+                </label>
+                <textarea
+                    type="text"
+                    class="border border-gray-200 rounded p-2 w-full ckeditor"
+                    name="price_table"
+                    value="{{$ser->price_table}}"
+                ></textarea>
+
+                @error('price_table')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
                 <button type="submit"  class="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                     <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

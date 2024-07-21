@@ -17,8 +17,8 @@
         <tr>
             <th scope="row">{{$key+=1}}</th>
             <td>{{$Products->products_name}}</td>
-            <td><img class="w-[100px] h-[60px]" src="../../../{{$Products->products_image}}" alt=""></td>
-            <td>{{$Products->category_id}}</td>
+            <td><img class="w-[60px] h-[100px]" src="../../../{{$Products->products_image}}" alt=""></td>
+            <td>{{$Products->categories->name}}</td>
             <td>
                 <div class="grid gap-2 items-center">
                     <button class="btn btn-primary">
@@ -33,5 +33,5 @@
         @endforeach
     </tbody>
 </table>
-
+    {{$product ->links()}}
 @endsection

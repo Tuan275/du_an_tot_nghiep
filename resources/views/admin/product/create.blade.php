@@ -32,6 +32,7 @@
                 Category
             </label>
             <select class="form-select" name="category_id" id="floatingSelect" aria-label="Floating label select example">
+                <option class="italic text-sm">Lựa chọn danh mục</option>
                 @foreach ($categories as $category)
                 <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach

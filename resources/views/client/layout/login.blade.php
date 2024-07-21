@@ -6,10 +6,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    
+
     <section class="content">
         @yield('content')
     </section>
-      
+    
 </body>
 </html>

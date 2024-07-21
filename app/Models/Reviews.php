@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Services;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reviews extends Model
 {
@@ -31,5 +32,10 @@ class Reviews extends Model
     public function users(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+        public function getFormattedDateAttribute()
+    {
+        return $this->created_at ? $this->created_at->format('Y-m-d') : 'N/A';
     }
 }

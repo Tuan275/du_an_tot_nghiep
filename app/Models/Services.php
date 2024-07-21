@@ -22,12 +22,13 @@ class Services extends Model
         "image",
         "status",
         "price",
-        "description"
+        "description",
+        "price_table"
     ];
 
-    public function reviews(): HasMany
+    public function reviews(): BelongsTo
     {
-        return $this->hasMany(Reviews::class, 'service_id');
+        return $this->BelongsTo(Reviews::class, 'service_id');
     }
 
     public function users(): BelongsTo
@@ -35,8 +36,8 @@ class Services extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function appointments(): BelongsTo
+    public function appointments(): HasMany
     {
-        return $this->belongsTo(Appointments::class, 'service_id');
+        return $this->hasMany(Appointments::class, 'service_id');
     }
 }

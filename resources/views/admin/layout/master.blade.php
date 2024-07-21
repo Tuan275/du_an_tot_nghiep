@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  @include('admin.layout.head')
+@include('admin.layout.head')
+
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
     <!-- Navbar -->
@@ -18,7 +19,7 @@
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1 class="m-0">
-                  @yield('content_title')
+                @yield('content_title')
               </h1>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -28,8 +29,8 @@
 
       <!-- Main content -->
       <section class="content">
-        
-          @yield('content')
+
+        @yield('content')
 
       </section>
       <!-- /.content -->
@@ -39,10 +40,30 @@
     @include('admin.layout.footer')
 
   </div>
-<!-- ./wrapper -->
+  <!-- ./wrapper -->
 
-<!-- Script -->
+  <!-- Script -->
   @include('admin.layout.script')
 
+  <script>
+    //xử lý lưu lại hoạt động 
+    // Lưu trạng thái vào cookie
+    document.cookie = `scrollPosition=${window.scrollY}; path=/`;
+
+    // Lấy trạng thái từ cookie
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    window.onload = () => {
+      const scrollPosition = getCookie('scrollPosition');
+      if (scrollPosition) {
+        window.scrollTo(0, parseInt(scrollPosition, 10));
+      }
+    };
+  </script>
 </body>
+
 </html>

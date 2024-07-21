@@ -26,6 +26,7 @@ class ServicesController extends Controller
             'status' => 'required',
             'price'=> 'required',
             'description' => 'required',
+            'price_table'=>'required'
 
         ]);
         if ($request->hasFile('image')) {
@@ -51,6 +52,7 @@ class ServicesController extends Controller
             'status' => 'required',
             'price'=> 'required',
             'description' => 'required',
+            'price_table'=>'required',
             'id' => 'required',
 
         ]);
@@ -72,6 +74,7 @@ class ServicesController extends Controller
         $ser->description = $formFields['description'];
         $ser->status =  $formFields['status'];
         $ser->price = $formFields['price'];
+        $ser->price_table = $formFields['price_table'];
         $ser->created_at = Carbon::now();
 
 
@@ -94,12 +97,15 @@ class ServicesController extends Controller
         return redirect('admin/service/list')->with('message', 'Delete service successfully');
     }
 
-    public function show_services()
+    public function search(Request $request)
     {
-        $ser = Services::all();
-        return view('client.home', compact('ser'));
-       
+        $keyword = $request->input('keyword');
+        $ser = Services::where('name_service', 'LIKE', "%{$keyword}%")->get();
+        
+        return view('client.search', ['services' => $ser]);
     }
+
+
 
     
 }

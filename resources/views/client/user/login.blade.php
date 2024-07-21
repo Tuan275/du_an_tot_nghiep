@@ -59,5 +59,7 @@
             </a>
         </p>
     </div>
+    <a href="{{ url('auth/google') }}" class="btn btn-primary">Login with Google</a>
+    <a href="{{ url('auth/facebook') }}" class="btn btn-primary">Login with Facebook</a>
 </div>
 @endsection

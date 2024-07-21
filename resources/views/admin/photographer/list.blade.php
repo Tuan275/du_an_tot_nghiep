@@ -23,10 +23,10 @@
             <td>{{$Photographer->phone_number}}</td>
             <td><img class="w-[64px] h-[64px]" src="../../../{{$Photographer->image}}" alt=""></td>
             <td>{{$Photographer->description}}</td>
-            <td><button class="btn btn-primary">
+            <td><button class="btn btn-primary w-20">
                     <a class="text-white" href="{{route('admin.photographer.edit', $Photographer->id)}}">Edit</a>
                 </button>
-                <button class="btn btn-danger">
+                <button class="btn btn-danger w-20">
                     <a class="text-white" onclick="return confirm('Really delete this photographer?')" href="{{route('admin.photographer.delete', $Photographer->id)}}"> Delete</a>
                 </button>
             </td>

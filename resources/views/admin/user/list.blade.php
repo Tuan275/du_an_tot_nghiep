@@ -19,7 +19,17 @@
             <th scope="row">{{$key+=1}}</th>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
-            <td>{{$user->role == 1 ? "Admin" : "User"}}</td>
+            <td>
+                @if ($user->role == 0)
+                <button class="btn btn-info w-20">
+                    <a class="text-white" href="{{ route('admin.user.update_role', ['id' => $user->id, 'role' => 1]) }}" onclick="return confirm('Bạn có muốn chuyển tài khoản này sang tài khoản quản trị không?')">User</a>
+                </button>
+                @else
+                <button class="btn btn-success w-20">
+                    <a class="text-white" href="{{ route('admin.user.update_role', ['id' => $user->id, 'role' => 0]) }}" onclick="return confirm('Bạn có muốn chuyển tài khoản này sang tài khoản người dùng không?')">Admin</a>
+                </button>
+                @endif
+            </td>
             <td>
                 <img class="w-[64px] h-[64px]" src="../../../{{$user->image}}" alt="">
             </td>

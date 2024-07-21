@@ -22,17 +22,25 @@ class Appointments extends Model
         "service_id",
         "schedule",
         "status",
-        "user_id"
+        "user_id",
+        "phone_number",
+        "address"
+      
     ];
 
-    public function services(): HasMany
+    public function services()
     {
-        return $this->hasMany(Services::class, 'service_id');
+        return $this->belongsTo(Services::class, 'service_id');
     }
 
-    public function users(): HasMany
+    public function photographer(): BelongsTo
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(Photographer::class, 'photographer_id');
+    }
+
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function appointment_detail(): BelongsTo

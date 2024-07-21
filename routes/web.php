@@ -1,13 +1,19 @@
 <?php
 
+use App\Http\Controllers\AboutStudioController;
+use App\Http\Controllers\AppointmentsController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Payment_infoController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductsController;
-
+use App\Http\Controllers\ReviewController;
+use App\Models\AboutStudio;
+use App\Models\Reviews;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +26,23 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/', [ServicesController::class, 'show_services'])
+Route::get('/', [ClientController::class, 'show_home'])
     ->name('client.home');
-Route::get('album', [ProductsController::class, 'show_product'])
+Route::get('album', [ClientController::class, 'show_product'])
     ->name('client.album');
-   
+Route::get('userDetail', [ClientController::class, 'show_appointment'])
+    ->name('client.userDetail');
+Route::get('price', [ClientController::class, 'show_price'])
+    ->name('client.price');
+Route::get('dashboard', [ClientController::class, 'dashboard'])
+    ->name('admin.dashboard.home');
+Route::get('about', [ClientController::class, 'show_about'])
+    ->name('client.about');
+
+
+//dashboard
+
+
 Route::middleware('checkadmin')->prefix('admin')->group(function () {
     Route::get('index', [UserController::class, 'index'])
         ->name('admin.index');
@@ -41,6 +59,8 @@ Route::middleware('checkadmin')->prefix('admin')->group(function () {
             ->name('admin.user.update');
         Route::get('delete/{id}', [UserController::class, 'delete'])
             ->name('admin.user.delete');
+        Route::get('/update_role/{id}/{role}', [UserController::class, 'update_role'])
+            ->name('admin.user.update_role');
     });
 
     //Categories
@@ -85,28 +105,17 @@ Route::middleware('checkadmin')->prefix('admin')->group(function () {
             ->name('admin.service.edit');
         Route::put('update/{id}', [ServicesController::class, 'update'])
             ->name('admin.service.update');
-        Route::get('update_status', [ServicesController::class, 'update_status'])
+        Route::get('/update_status/{id}/{status}', [ServicesController::class, 'update_status'])
             ->name('admin.service.update_status');
         Route::get('delete/{id}', [ServicesController::class, 'delete'])
             ->name('admin.service.delete');
     });
-    // Payment_info
-    Route::prefix('payment')->group(function () {
-        Route::get('list', [Payment_infoController::class, 'index'])
-            ->name('admin.payment.list');
-        Route::get('edit/{id}', [Payment_infoController::class, 'edit'])
-            ->name('admin.payment.edit');
-        Route::put('update/{id}', [Payment_infoController::class, 'update'])
-            ->name('admin.payment.update');
-        Route::get('delete/{id}', [Payment_infoController::class, 'delete'])
-            ->name('admin.payment.delete');
-    });
 
     //Product
     Route::prefix('product')->group(function () {
-        Route::get('list', [ProductsController::class,'index'])
+        Route::get('list', [ProductsController::class, 'index'])
             ->name('admin.products.list');
-            Route::get('create', [ProductsController::class, 'create'])
+        Route::get('create', [ProductsController::class, 'create'])
             ->name('admin.products.create');
         Route::post('store', [ProductsController::class, 'store'])
             ->name('admin.products.store');
@@ -114,12 +123,79 @@ Route::middleware('checkadmin')->prefix('admin')->group(function () {
             ->name('admin.products.edit');
         Route::put('update/{id}', [ProductsController::class, 'update'])
             ->name('admin.products.update');
-         Route::get('delete/{id}', [ProductsController::class, 'delete'])
+        Route::get('delete/{id}', [ProductsController::class, 'delete'])
             ->name('admin.products.delete');
     });
+
+    //appointments
+    Route::prefix('appointment')->group(function () {
+        Route::get('list', [AppointmentsController::class, 'index'])
+            ->name('admin.appointment.list');
+        Route::get('create', [AppointmentsController::class, 'create'])
+            ->name('client.contact');
+        Route::post('store', [AppointmentsController::class, 'store'])
+            ->name('client.appointment.store');
+        Route::get('edit/{id}', [AppointmentsController::class, 'edit'])
+            ->name('admin.appointment.edit');
+        Route::put('update/{id}', [AppointmentsController::class, 'update'])
+            ->name('admin.appointment.update');
+        Route::get('/update_status/{id}/{status}', [AppointmentsController::class, 'update_status'])
+            ->name('admin.appointment.update_status');
+        Route::get('delete/{id}', [AppointmentsController::class, 'delete'])
+            ->name('admin.appointment.delete');
+        
+        Route::get('search', [AppointmentsController::class, 'search'])->name('admin.appointment.search');
+
+        Route::patch('/appointment/{id}/updatePhotograp', [AppointmentsController::class, 'updatePhotograp'])
+            ->name('admin.appointment.updatePhotograp');
+        Route::delete('/admin/appointments/deleteAll', [AppointmentsController::class, 'deleteAll'])->name('admin.appointment.deleteAll');
+
+        Route::post('/appointments/{id}', [AppointmentsController::class, 'updateClient'])
+        ->name('client.appointment.updateAppointment');
+
+        Route::get('/appointments/{id}', [AppointmentsController::class, 'destroy'])
+        ->name('client.appointment.delete');
+
+    });
+
+    //Review
+    Route::prefix('review')->group(function () {
+        Route::get('list', [ReviewController::class, 'index'])
+            ->name('admin.review.list');
+        Route::post('store', [ReviewController::class, 'store'])
+            ->name('client.review.store');
+        Route::get('/update_status/{id}/{status}', [ReviewController::class, 'update_status'])
+            ->name('admin.review.update_status');
+
+});
+
+    //aboutStudio
+    Route::prefix('about')->group(function () {
+        Route::get('list', [AboutStudioController::class, 'index'])
+            ->name('admin.about.list');
+        Route::get('create', [AboutStudioController::class, 'create'])
+            ->name('admin.about.create');
+        Route::post('store', [AboutStudioController::class, 'store'])
+            ->name('admin.about.store');
+        Route::get('edit/{id}', [AboutStudioController::class, 'edit'])
+            ->name('admin.about.edit');
+        Route::put('update/{id}', [AboutStudioController::class, 'update'])
+            ->name('admin.about.update');
+        Route::get('delete/{id}', [AboutStudioController::class, 'delete'])
+            ->name('admin.about.delete');
+        Route::get('/update_status/{id}/{status}', [AboutStudioController::class, 'update_status'])
+            ->name('admin.about.update_status');
 });
 
 
+
+
+
+
+});
+
+
+Route::get('search', [ServicesController::class, 'search'])->name('client.search');
 
 
 Route::prefix(('user'))->group(function () {
@@ -135,6 +211,13 @@ Route::prefix(('user'))->group(function () {
         ->name('user.logout');
 });
 
+
+
+Route::get('auth/google', [UserController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [UserController::class, 'handleGoogleCallback']);
+
+Route::get('auth/facebook', [UserController::class, 'redirectToFacebook']);
+Route::get('auth/facebook/callback', [UserController::class, 'handleFacebookCallback']);
 // Route::prefix(('client'))->group(function () {
 //     Route::get('/')
 //         ->name('client.home');

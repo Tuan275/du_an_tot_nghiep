@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 // use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -90,35 +92,44 @@ class UserController extends Controller
         return view('admin.user.edit', ['user'=> $user]);
     }
 
-    public function update(Request $request) {
-        $formFields = $request->validate([
-            'name'=> 'required',
-            'image'=> 'required|file|mimes:jpg,jpeg,png',
-            'password'=> 'required',
-            'email'=> 'required',
-            'id'=>'required',
+    public function update(Request $request,$id) {
+        $user = User::find($id);
 
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        // dd($formFields);
-        $user = User::find($formFields['id']);
-
-        // dd($request->image);
-        if($request->hasFile('image')) {
-            $file = $formFields['image'];
+    
+        $user->name = $request->name;
+        $user->email = $request->email;
+    
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+    
+        if ($request->hasFile('image')) {
+            $file = $request['image'];
             $filename = $file->getClientOriginalName();
             $path = 'uploads/user/';
             $file->move($path, $filename);
-            $user->image = $path . $filename;
+             $path . $filename;
+            $user->image = $path . $filename;;
         }
-        
-        
-        $user->name_service = $formFields['name_service'];
-        $user->email = $formFields['email'];
-        $user->password = $formFields['password'];
-        $user->created_at = Carbon::now();
+    
+        $user->save();
+    
+        return redirect()->route('admin.user.list')->with('success', 'User updated successfully.');
 
+    }
 
+    public function update_role(Request $request)
+    {
+        $user = User::find($request->id);
+        if ($user) {
+            $user->role = $request->role;
+        }
         $user->save();
         return redirect()->route('admin.user.list');
     }
@@ -128,4 +139,54 @@ class UserController extends Controller
         User::where('id', $id)->delete();
         return redirect('admin/user/list')->with('message', 'Delete user successfully');
     }
+
+
+
+
+    
+
+    //   // Google
+    //   public function redirectToGoogle()
+    //   {
+    //       return Socialite::driver('google')->redirect();
+    //   }
+  
+    //   public function handleGoogleCallback()
+    //   {
+    //       $user = Socialite::driver('google')->stateless()->user();
+    //       $this->loginOrCreateAccount($user, 'google');
+    //       return redirect()->intended('/home');
+    //   }
+  
+    //   // Facebook
+    //   public function redirectToFacebook()
+    //   {
+    //       return Socialite::driver('facebook')->redirect();
+    //   }
+  
+    //   public function handleFacebookCallback()
+    //   {
+    //       $user = Socialite::driver('facebook')->stateless()->user();
+    //       $this->loginOrCreateAccount($user, 'facebook');
+    //       return redirect()->intended('/home');
+    //   }
+  
+    //   // Helper function
+    //   protected function loginOrCreateAccount($providerUser, $provider)
+    //   {
+    //       $user = User::where('provider_id', $providerUser->getId())->first();
+  
+    //       if (!$user) {
+    //           $user = User::create([
+    //               'name' => $providerUser->getName(),
+    //               'email' => $providerUser->getEmail(),
+    //               'provider' => $provider,
+    //               'provider_id' => $providerUser->getId(),
+    //               'password' => '',
+    //           ]);
+    //       }
+  
+    //       Auth::login($user, true);
+    //   }
+  
 }

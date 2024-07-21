@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -55,5 +56,7 @@ class CategoriesController extends Controller
         Category::where('id', $id)->delete();
         return redirect('admin/categories/list')->with('message', 'Delete categories successfully');
     }
+
     
+
 }

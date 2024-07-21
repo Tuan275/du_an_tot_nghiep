@@ -11,8 +11,8 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $product = Products::all();
-        return view('admin.product.list', compact('product'));
+        $product = Products::paginate(3);
+        return view('admin.product.list', compact('product'))->with('i', (request()->input('page',1) -1) *5);
     }
     public function create()
     {   
@@ -66,12 +66,12 @@ class ProductsController extends Controller
         $product = Products::find($formFields['id']);
 
 
-        if ($request->hasFile('image')) {
-            $file = $formFields['image'];
+        if ($request->hasFile('products_image')) {
+            $file = $formFields['products_image'];
             $filename = $file->getClientOriginalName();
             $path = 'uploads/product/';
             $file->move($path, $filename);
-            $product->image = $path . $filename;
+            $product->products_image = $path . $filename;
         }
 
         // dd($request->image);
@@ -93,12 +93,6 @@ class ProductsController extends Controller
     }
 
 
-    public function show_product()
-    {
-        $product = Products::all();
-        return view('client.album', compact('product'));
-        // $ser = Services::paginate(3);
-        // return view('client.home', compact('ser'))->with('i', (request()->input('page',1) -1) *5);
-    }
+    
 
 }
